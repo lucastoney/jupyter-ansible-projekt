@@ -1,0 +1,93 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="JupyterLab Ansible Architektur" id="jMA4xg-ikUPr2BjdF8rM">
+    <mxGraphModel dx="1406" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-42" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;" value="Projekt 2: JupyterLab mit Ansible, Vagrant und lokalem Nginx-Reverse-Proxy" vertex="1">
+          <mxGeometry height="40" width="1240" x="80" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-43" parent="1" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=10;fontSize=15;fontStyle=1;align=center;verticalAlign=top;fillColor=#f8f9fa;strokeColor=#666666;" value="&lt;b&gt;Laptop / PC&lt;/b&gt;&lt;br&gt;&lt;span style=&#39;font-size:12px&#39;&gt;Controller, Client und Git-Arbeitsumgebung&lt;/span&gt;" vertex="1">
+          <mxGeometry height="560" width="340" x="60" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-44" parent="ASk4GoaggNcpJz1mAXLk-43" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;VirtualBox&lt;/b&gt;&lt;br&gt;lokaler VM-Provider" vertex="1">
+          <mxGeometry height="70" width="280" x="30" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-45" parent="ASk4GoaggNcpJz1mAXLk-43" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;b&gt;Vagrant&lt;/b&gt;&lt;br&gt;erstellt und startet die VM" vertex="1">
+          <mxGeometry height="75" width="280" x="30" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-46" parent="ASk4GoaggNcpJz1mAXLk-43" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Ansible Controller&lt;/b&gt;&lt;br&gt;Inventory, Playbook, Roles&lt;br&gt;Ausführung via SSH" vertex="1">
+          <mxGeometry height="95" width="280" x="30" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-47" parent="ASk4GoaggNcpJz1mAXLk-43" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Browser + Git&lt;/b&gt;&lt;br&gt;localhost:8888 / localhost:8080&lt;br&gt;Repository ohne Secrets" vertex="1">
+          <mxGeometry height="95" width="280" x="30" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-48" parent="1" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=10;fontSize=15;fontStyle=1;align=center;verticalAlign=top;fillColor=#f8f9fa;strokeColor=#666666;" value="&lt;b&gt;SSH / Tunnel&lt;/b&gt;&lt;br&gt;&lt;span style=&#39;font-size:12px&#39;&gt;einziger Zugriffskanal&lt;/span&gt;" vertex="1">
+          <mxGeometry height="460" width="300" x="530" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-49" parent="ASk4GoaggNcpJz1mAXLk-48" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;SSH Port 22&lt;/b&gt;&lt;br&gt;Ansible-Provisionierung&lt;br&gt;Login mit Public Key / sudo" vertex="1">
+          <mxGeometry height="105" width="230" x="35" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-50" parent="ASk4GoaggNcpJz1mAXLk-48" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;SSH-Tunnel&lt;/b&gt;&lt;br&gt;-L 8888:localhost:8888&lt;br&gt;-L 8080:localhost:8080&lt;br&gt;kein direkter Portzugriff" vertex="1">
+          <mxGeometry height="125" width="230" x="35" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-51" parent="1" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=10;fontSize=15;fontStyle=1;align=center;verticalAlign=top;fillColor=#f8f9fa;strokeColor=#666666;" value="&lt;b&gt;Ubuntu-VM: jupyter-node&lt;/b&gt;&lt;br&gt;&lt;span style=&#39;font-size:12px&#39;&gt;Managed Host, IP 192.168.56.20&lt;/span&gt;" vertex="1">
+          <mxGeometry height="560" width="390" x="960" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-52" parent="ASk4GoaggNcpJz1mAXLk-51" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#eeeeee;strokeColor=#666666;" value="&lt;b&gt;Ubuntu 24.04 LTS&lt;/b&gt;&lt;br&gt;Managed Host" vertex="1">
+          <mxGeometry height="65" width="320" x="35" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-53" parent="ASk4GoaggNcpJz1mAXLk-51" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Ansible Roles&lt;/b&gt;&lt;br&gt;base&lt;br&gt;jupyterlab&lt;br&gt;nginx_proxy" vertex="1">
+          <mxGeometry height="110" width="320" x="35" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-54" parent="ASk4GoaggNcpJz1mAXLk-51" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;JupyterLab&lt;/b&gt;&lt;br&gt;systemd-Service&lt;br&gt;127.0.0.1:8888&lt;br&gt;Benutzer: jupyter" vertex="1">
+          <mxGeometry height="115" width="320" x="35" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-55" parent="ASk4GoaggNcpJz1mAXLk-51" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;spacing=8;fontSize=13;align=center;verticalAlign=middle;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;b&gt;Nginx Reverse Proxy&lt;/b&gt;&lt;br&gt;127.0.0.1:8080&lt;br&gt;Proxy zu JupyterLab" vertex="1">
+          <mxGeometry height="85" width="320" x="35" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-58" edge="1" parent="1" source="ASk4GoaggNcpJz1mAXLk-45" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#d79b00;" target="ASk4GoaggNcpJz1mAXLk-52" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="320" />
+              <mxPoint x="900" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-59" edge="1" parent="1" source="ASk4GoaggNcpJz1mAXLk-46" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#82b366;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="ASk4GoaggNcpJz1mAXLk-49" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="443" />
+              <mxPoint x="470" y="400" />
+              <mxPoint x="680" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-60" edge="1" parent="1" source="ASk4GoaggNcpJz1mAXLk-49" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#82b366;" target="ASk4GoaggNcpJz1mAXLk-53" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-61" edge="1" parent="1" source="ASk4GoaggNcpJz1mAXLk-47" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#9673a6;" target="ASk4GoaggNcpJz1mAXLk-50" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-62" edge="1" parent="1" source="ASk4GoaggNcpJz1mAXLk-50" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#6c8ebf;" target="ASk4GoaggNcpJz1mAXLk-54" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-63" edge="1" parent="1" source="ASk4GoaggNcpJz1mAXLk-50" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#9673a6;" target="ASk4GoaggNcpJz1mAXLk-55" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="895" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ASk4GoaggNcpJz1mAXLk-64" edge="1" parent="1" source="ASk4GoaggNcpJz1mAXLk-55" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#d79b00;" target="ASk4GoaggNcpJz1mAXLk-54" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1375" y="585" />
+              <mxPoint x="1375" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
