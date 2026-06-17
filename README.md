@@ -95,16 +95,4 @@ jupyterlab
 nginx_proxy
 ```
 
-## Sicherheitsansatz
-
-Die Umgebung ist bewusst lokal aufgebaut. JupyterLab wird nicht öffentlich freigegeben und läuft nicht als Root-Benutzer.
-
-Private Keys, Tokens, Passwörter, `.env`-Dateien und lokale Vagrant-Dateien werden nicht ins Git-Repository hochgeladen.
-
-Der JupyterLab-Token wird nur lokal verwendet und darf nicht im Repository gespeichert werden.
-
-## Projektabgrenzung
-
-Mein Projekt ist keine produktive Plattform. Es verwendet kein Docker, kein Kubernetes, kein JupyterHub und keinen öffentlichen Webzugriff.
-
 Der Fokus liegt auf einer schlanken, verständlichen und reproduzierbaren Ansible-Umsetzung für eine lokale Schulumgebung.
