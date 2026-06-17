@@ -1,0 +1,20 @@
+---
+system_packages:
+  - python3
+  - python3-pip
+  - python3-venv
+  - ufw
+  - nginx
+
+jupyter_user: jupyter
+jupyter_group: jupyter
+jupyter_home: /opt/jupyterlab
+jupyter_venv: /opt/jupyterlab/venv
+jupyter_notebook_dir: /opt/jupyterlab/notebooks
+jupyter_bind_ip: 127.0.0.1
+jupyter_port: 8888
+
+nginx_listen_ip: 127.0.0.1
+nginx_listen_port: 8080
+nginx_proxy_target: http://127.0.0.1:8888
+nginx_site_name: jupyterlab

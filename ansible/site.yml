@@ -1,0 +1,8 @@
+---
+- name: JupyterLab Server automatisiert bereitstellen
+  hosts: jupyter_servers
+  become: true
+  roles:
+    - base
+    - jupyterlab
+    - nginx_proxy

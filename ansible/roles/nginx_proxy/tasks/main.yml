@@ -1,0 +1,37 @@
+---
+- name: Nginx installieren
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Default-Site deaktivieren
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: nginx neu laden
+
+- name: Nginx Reverse-Proxy Site erstellen
+  ansible.builtin.template:
+    src: jupyterlab-nginx.conf.j2
+    dest: "/etc/nginx/sites-available/{{ nginx_site_name }}.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: nginx neu laden
+
+- name: Nginx Reverse-Proxy Site aktivieren
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{ nginx_site_name }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_site_name }}.conf"
+    state: link
+  notify: nginx neu laden
+
+- name: Nginx Konfiguration pruefen
+  ansible.builtin.command: nginx -t
+  changed_when: false
+
+- name: Nginx Service aktivieren und starten
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: true
+    state: started

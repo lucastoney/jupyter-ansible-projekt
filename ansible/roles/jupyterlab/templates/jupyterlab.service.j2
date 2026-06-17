@@ -1,0 +1,23 @@
+[Unit]
+Description=Lokaler JupyterLab Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ jupyter_user }}
+Group={{ jupyter_group }}
+WorkingDirectory={{ jupyter_notebook_dir }}
+Environment=HOME={{ jupyter_home }}
+Environment=PATH={{ jupyter_venv }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart={{ jupyter_venv }}/bin/jupyter lab --no-browser --ip={{ jupyter_bind_ip }} --port={{ jupyter_port }} --notebook-dir={{ jupyter_notebook_dir }} --ServerApp.allow_remote_access=False
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths={{ jupyter_home }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,67 @@
+---
+- name: JupyterLab Gruppe erstellen
+  ansible.builtin.group:
+    name: "{{ jupyter_group }}"
+    system: true
+
+- name: JupyterLab Benutzer erstellen
+  ansible.builtin.user:
+    name: "{{ jupyter_user }}"
+    group: "{{ jupyter_group }}"
+    home: "{{ jupyter_home }}"
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+
+- name: JupyterLab Verzeichnisse erstellen
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ jupyter_user }}"
+    group: "{{ jupyter_group }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - path: "{{ jupyter_home }}"
+      mode: "0750"
+    - path: "{{ jupyter_notebook_dir }}"
+      mode: "0750"
+
+- name: Python Virtual Environment erstellen und JupyterLab installieren
+  ansible.builtin.pip:
+    name: jupyterlab
+    state: present
+    virtualenv: "{{ jupyter_venv }}"
+    virtualenv_command: python3 -m venv
+  notify: jupyterlab neu starten
+
+- name: Besitzrechte fuer JupyterLab Verzeichnis setzen
+  ansible.builtin.file:
+    path: "{{ jupyter_home }}"
+    state: directory
+    owner: "{{ jupyter_user }}"
+    group: "{{ jupyter_group }}"
+    recurse: true
+
+- name: Beispiel-Notebook kopieren
+  ansible.builtin.copy:
+    src: beispiel_notebook.ipynb
+    dest: "{{ jupyter_notebook_dir }}/beispiel_notebook.ipynb"
+    owner: "{{ jupyter_user }}"
+    group: "{{ jupyter_group }}"
+    mode: "0640"
+
+- name: systemd Service fuer JupyterLab erstellen
+  ansible.builtin.template:
+    src: jupyterlab.service.j2
+    dest: /etc/systemd/system/jupyterlab.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: jupyterlab neu starten
+
+- name: JupyterLab Service aktivieren und starten
+  ansible.builtin.systemd:
+    name: jupyterlab
+    enabled: true
+    state: started
+    daemon_reload: true
