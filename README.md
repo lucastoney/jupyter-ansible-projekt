@@ -67,7 +67,7 @@ nginx_proxy
 
 ## Sicherheit
 
-JupyterLab läuft nicht als Root. Die Dienste binden nur auf `127.0.0.1`. Private Keys, Tokens, Passwörter, `.env`-Dateien und lokale Vagrant-Dateien werden nicht ins Repository aufgenommen.
+JupyterLab läuft nicht als Root.
 
 ## Abgrenzung
 
