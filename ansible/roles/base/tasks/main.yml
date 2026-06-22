@@ -8,22 +8,3 @@
   ansible.builtin.apt:
     name: "{{ system_packages }}"
     state: present
-
-- name: UFW eingehend standardmaessig blockieren
-  community.general.ufw:
-    direction: incoming
-    policy: deny
-
-- name: UFW ausgehend standardmaessig erlauben
-  community.general.ufw:
-    direction: outgoing
-    policy: allow
-
-- name: SSH in UFW erlauben
-  community.general.ufw:
-    rule: allow
-    name: OpenSSH
-
-- name: UFW aktivieren
-  community.general.ufw:
-    state: enabled

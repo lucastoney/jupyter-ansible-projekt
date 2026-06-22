@@ -17,7 +17,6 @@ Ich erstelle ein schlankes Automatisierungsprojekt mit Ansible. Eine Ubuntu-VM w
 ### Optionale Erweiterung / Zusatznutzen je nach Zeit
 
 * Nginx als lokaler Reverse Proxy
-* UFW als einfache Firewall-Grundkonfiguration
 * SSH-Tunnel für den lokalen Browserzugriff
 
 ## Grobe Architektur
@@ -37,4 +36,3 @@ Falls die optionale Nginx-Erweiterung umgesetzt wird, lauscht Nginx ebenfalls nu
 Am Ende entsteht ein reproduzierbares und gut dokumentiertes Ansible-Projekt mit Inventory, Variablen, Playbook, Rollen, Templates, systemd-Service, Architekturzeichnung und nachvollziehbaren Testbefehlen.
 
 Der verbindliche Massstab ist die funktionierende automatisierte Bereitstellung von JupyterLab mit Ansible.
-

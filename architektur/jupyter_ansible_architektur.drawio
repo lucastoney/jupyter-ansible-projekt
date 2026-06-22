@@ -43,13 +43,10 @@
         <mxCell id="vm_os" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;strokeWidth=2;spacing=8;fontSize=13;align=left;verticalAlign=middle;fillColor=#e0f2fe;strokeColor=#0284c7;fillColor=#ffedd5;strokeColor=#f97316;" value="&lt;b&gt;Ubuntu 24.04 LTS&lt;/b&gt;&lt;br&gt;Managed Host&lt;br&gt;Host-only-IP: 192.168.56.20" vertex="1">
           <mxGeometry height="78" width="555" x="940" y="185" as="geometry" />
         </mxCell>
-        <mxCell id="vm_ufw" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;strokeWidth=1;spacing=8;fontSize=12;align=center;verticalAlign=middle;fillColor=#fef2f2;strokeColor=#dc2626;" value="&lt;b&gt;UFW Firewall&lt;/b&gt;&lt;br&gt;erlaubt SSH · keine Freigabe für 8888 / 8080" vertex="1">
-          <mxGeometry height="64" width="555" x="940" y="300" as="geometry" />
-        </mxCell>
         <mxCell id="vm_roles_title" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;strokeWidth=2;spacing=12;fontSize=16;fontStyle=1;align=center;verticalAlign=top;fillColor=#f8fafc;strokeColor=#94a3b8;" value="&lt;b&gt;Ansible-Rollen&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px;font-weight:normal&quot;&gt;Konfiguration wird aus Playbook/Rollen erzeugt&lt;/span&gt;" vertex="1">
           <mxGeometry height="128" width="555" x="940" y="395" as="geometry" />
         </mxCell>
-        <mxCell id="role_base" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;strokeWidth=2;spacing=8;fontSize=12;align=center;verticalAlign=middle;fillColor=#ecfdf5;strokeColor=#16a34a;fontStyle=1;" value="base&lt;br&gt;&lt;span style=&quot;font-weight:normal&quot;&gt;Pakete + UFW&lt;/span&gt;" vertex="1">
+        <mxCell id="role_base" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;strokeWidth=2;spacing=8;fontSize=12;align=center;verticalAlign=middle;fillColor=#ecfdf5;strokeColor=#16a34a;fontStyle=1;" value="base&lt;br&gt;&lt;span style=&quot;font-weight:normal&quot;&gt;Pakete&lt;/span&gt;" vertex="1">
           <mxGeometry height="50" width="140" x="970" y="455" as="geometry" />
         </mxCell>
         <mxCell id="role_jupyter" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;strokeWidth=2;spacing=8;fontSize=12;align=center;verticalAlign=middle;fillColor=#ecfdf5;strokeColor=#16a34a;fontStyle=1;" value="jupyterlab&lt;br&gt;&lt;span style=&quot;font-weight:normal&quot;&gt;User + venv + systemd&lt;/span&gt;" vertex="1">
@@ -94,15 +91,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_ssh_to_ufw" edge="1" parent="1" source="net_ssh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#16a34a;fontSize=12;fontStyle=1;fontColor=#166534;labelBackgroundColor=#f8fafc;exitX=1;exitY=0.32;entryX=0;entryY=0.5;" target="vm_ufw" value="SSH 22">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="840" y="434" />
-              <mxPoint x="840" y="332" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e_ssh_to_roles" edge="1" parent="1" source="net_ssh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#16a34a;fontSize=12;fontStyle=1;fontColor=#166534;labelBackgroundColor=#f8fafc;exitX=1;exitY=0.68;entryX=0;entryY=0.5;" target="vm_roles_title" value="Konfiguration">
+        <mxCell id="e_ssh_to_roles" edge="1" parent="1" source="net_ssh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#16a34a;fontSize=12;fontStyle=1;fontColor=#166534;labelBackgroundColor=#f8fafc;exitX=1;exitY=0.68;entryX=0;entryY=0.5;" target="vm_roles_title" value="SSH 22 / Konfiguration">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="840" y="468" />

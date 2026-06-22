@@ -22,7 +22,6 @@ Die Umgebung besteht aus einem Laptop/PC und einer Ubuntu-VM in einem privaten N
 - Managed Host
 - JupyterLab
 - Nginx Reverse Proxy
-- UFW Firewall
 
 ## Netzwerk / Zugriff
 
@@ -47,7 +46,6 @@ JupyterLab und Nginx werden nicht über öffentliche Ports freigegeben. Der Zugr
 - Installation von JupyterLab
 - Einrichtung eines systemd-Services
 - Konfiguration von Nginx als lokalem Reverse Proxy
-- Grundkonfiguration der Firewall
 - Starten und Aktivieren der Services
 
 ## Verwendete Ansible-Bestandteile
