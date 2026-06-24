@@ -59,46 +59,162 @@ Die systemd- und Nginx-Konfigurationen werden über Templates erzeugt.
 
 ## 6. Reproduktion der Umgebung
 
-VM starten:
+### 6.1 Voraussetzungen
+
+Die getestete Referenzumgebung verwendet:
+
+- Windows 10 oder Windows 11
+- Git
+- VirtualBox
+- Vagrant
+- WSL mit Ubuntu
+- Ansible innerhalb von WSL
+
+Windows PowerShell wird für Vagrant verwendet. WSL dient als Ansible Controller und die Ubuntu-VM `jupyter-node` als Managed Host. Unter Linux oder macOS kann Ansible direkt installiert werden, wodurch WSL entfällt. Ein reines Windows-System ohne WSL oder einen anderen Linux-basierten Ansible Controller wird nicht unterstützt.
+
+### 6.2 Repository herunterladen – Windows PowerShell
+
+```powershell
+git clone https://github.com/lucastoney/jupyter-ansible-projekt.git
+cd jupyter-ansible-projekt
+```
+
+### 6.3 WSL bei Bedarf installieren – Windows PowerShell als Administrator
+
+```powershell
+wsl --install -d Ubuntu
+```
+
+Nach der Installation muss Windows gegebenenfalls neu gestartet werden. Beim ersten Start von Ubuntu werden ein Linux-Benutzername und ein Passwort festgelegt.
+
+### 6.4 Ansible installieren – WSL
 
 ```bash
+sudo apt update
+sudo apt install -y ansible
+ansible --version
+```
+
+### 6.5 VM erstellen und starten – Windows PowerShell
+
+Im geklonten Repository:
+
+```powershell
 cd vagrant
 vagrant up
-cd ..
+vagrant status
 ```
 
-SSH-Verbindung prüfen:
-
-```bash
-cd vagrant
-vagrant ssh
-exit
-cd ..
-```
-
-Ansible-Verbindung prüfen:
-
-```bash
-ansible -i ansible/inventory.ini all -m ping
-```
-
-Erwartung:
+Erwartete Ausgabe:
 
 ```text
-pong
+jupyter-node running
 ```
 
-Playbook ausführen:
+Vagrant erstellt die Ubuntu-VM und erzeugt automatisch den benötigten SSH-Schlüssel.
+
+### 6.6 Projekt in WSL öffnen
+
+Der genaue Pfad muss an den Speicherort des Repositorys angepasst werden:
 
 ```bash
-ansible-playbook -i ansible/inventory.ini ansible/site.yml
+cd /mnt/c/PFAD/ZUM/jupyter-ansible-projekt
+ls
 ```
 
-Erwartung:
+Unter anderem sollten die Ordner `ansible` und `vagrant` sichtbar sein.
+
+### 6.7 SSH-Schlüssel vorbereiten – WSL
+
+```bash
+mkdir -p ~/.ssh
+cp vagrant/.vagrant/machines/jupyter-node/virtualbox/private_key ~/.ssh/jupyter-node
+chmod 600 ~/.ssh/jupyter-node
+```
+
+Der Schlüssel wird lokal von Vagrant erzeugt und nicht im Git-Repository gespeichert.
+
+### 6.8 Verbindung zum Managed Host prüfen – WSL
+
+```bash
+ANSIBLE_HOST_KEY_CHECKING=False ansible all \
+  -i ansible/inventory.ini \
+  -m ping \
+  -e "ansible_ssh_private_key_file=$HOME/.ssh/jupyter-node"
+```
+
+Erwartete Ausgabe:
 
 ```text
+jupyter-node | SUCCESS
+"ping": "pong"
+```
+
+### 6.9 Playbook ausführen – WSL
+
+```bash
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook \
+  -i ansible/inventory.ini \
+  ansible/site.yml \
+  -e "ansible_ssh_private_key_file=$HOME/.ssh/jupyter-node"
+```
+
+Die Bereitstellung ist erfolgreich, wenn die Zusammenfassung Folgendes enthält:
+
+```text
+unreachable=0
 failed=0
 ```
+
+### 6.10 SSH-Tunnel öffnen – Windows PowerShell
+
+In einem neuen PowerShell-Fenster innerhalb des Repositorys:
+
+```powershell
+cd vagrant
+vagrant ssh -- -L 8080:127.0.0.1:8080
+```
+
+Dieses Fenster muss während der Verwendung geöffnet bleiben.
+
+### 6.11 Jupyter-Token anzeigen – Ubuntu-VM
+
+Im geöffneten SSH-Fenster:
+
+```bash
+sudo -u jupyter env HOME=/opt/jupyterlab \
+  /opt/jupyterlab/venv/bin/jupyter server list
+```
+
+Die Ausgabe enthält eine lokale Adresse mit einem temporären Token:
+
+```text
+http://127.0.0.1:8888/?token=BEISPIELTOKEN
+```
+
+### 6.12 JupyterLab öffnen – Browser auf dem Laptop
+
+Der angezeigte Token wird in folgende Adresse eingesetzt:
+
+```text
+http://127.0.0.1:8080/lab?token=BEISPIELTOKEN
+```
+
+### 6.13 Umgebung beenden
+
+Zuerst wird die SSH-Verbindung geschlossen:
+
+```bash
+exit
+```
+
+Danach wird die VM im bereits geöffneten Ordner `vagrant` in Windows PowerShell heruntergefahren:
+
+```powershell
+vagrant halt
+```
+
+Beim nächsten Start genügt `vagrant up`. Das Playbook muss erneut ausgeführt werden, wenn die VM neu erstellt oder die Ansible-Konfiguration geändert wurde.
 
 ## 7. Funktionsnachweis
 
