@@ -5,6 +5,8 @@
 **TEKO Schweizerische Fachschule Bern**  
 **Modul:** Netzwerkbetriebssysteme / Automatisation mit Ansible  
 **Arbeitsform:** Einzelarbeit  
+**Name:** Luca Steiner  
+**Abgabedatum:** 24. Juni 2026  
 **Projekt:** JupyterLab mit Ansible, Vagrant und lokalem Nginx-Reverse-Proxy  
 **Managed Host:** Ubuntu-VM `jupyter-node` mit IP `192.168.56.20`
 
