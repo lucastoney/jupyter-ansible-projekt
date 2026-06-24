@@ -218,22 +218,24 @@ Beim nächsten Start genügt `vagrant up`. Das Playbook muss erneut ausgeführt 
 
 ## 7. Funktionsnachweis
 
+Die folgenden Befehle werden in Windows PowerShell im Ordner `vagrant` ausgeführt.
+
 JupyterLab-Service prüfen:
 
-```bash
-ssh vagrant@192.168.56.20 "sudo systemctl status jupyterlab --no-pager"
+```powershell
+vagrant ssh -c "sudo systemctl status jupyterlab --no-pager"
 ```
 
 Nginx-Service prüfen:
 
-```bash
-ssh vagrant@192.168.56.20 "sudo systemctl status nginx --no-pager"
+```powershell
+vagrant ssh -c "sudo systemctl status nginx --no-pager"
 ```
 
 Portbindung prüfen:
 
-```bash
-ssh vagrant@192.168.56.20 "ss -tulpen | grep -E '8888|8080'"
+```powershell
+vagrant ssh -c "sudo ss -tulpen | grep -E '8888|8080'"
 ```
 
 Erwartung:
@@ -250,28 +252,35 @@ Nicht erwartet:
 0.0.0.0:8080
 ```
 
-SSH-Tunnel direkt zu JupyterLab:
+SSH-Tunnel direkt zu JupyterLab öffnen:
 
-```bash
-ssh -L 8888:localhost:8888 vagrant@192.168.56.20
+```powershell
+vagrant ssh -- -L 8888:127.0.0.1:8888
 ```
 
 Browser:
 
 ```text
-http://localhost:8888
+http://127.0.0.1:8888
 ```
 
-SSH-Tunnel über Nginx:
+Alternativ den SSH-Tunnel über Nginx öffnen:
 
-```bash
-ssh -L 8080:localhost:8080 vagrant@192.168.56.20
+```powershell
+vagrant ssh -- -L 8080:127.0.0.1:8080
 ```
 
 Browser:
 
 ```text
-http://localhost:8080
+http://127.0.0.1:8080
+```
+
+Das jeweilige PowerShell-Fenster muss während des Browserzugriffs geöffnet bleiben. Falls eine Anmeldung verlangt wird, kann der aktuelle Jupyter-Token innerhalb der geöffneten SSH-Verbindung angezeigt werden:
+
+```bash
+sudo -u jupyter env HOME=/opt/jupyterlab \
+  /opt/jupyterlab/venv/bin/jupyter server list
 ```
 
 ## 8. Demo-Ablauf
