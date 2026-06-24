@@ -291,28 +291,16 @@ sudo -u jupyter env HOME=/opt/jupyterlab \
   /opt/jupyterlab/venv/bin/jupyter server list
 ```
 
-## 8. Demo-Ablauf
-
-1. Repository und Architekturzeichnung zeigen.
-2. VM mit `vagrant up` starten.
-3. SSH-Verbindung mit `vagrant ssh` prüfen.
-4. Ansible Ping ausführen.
-5. Playbook ausführen.
-6. Services und lokale Portbindung prüfen.
-7. SSH-Tunnel starten.
-8. JupyterLab im Browser öffnen.
-9. Beispiel-Notebook ausführen.
-
-## 9. Probleme und Lösungen
+## 8. Probleme und Lösungen
 
 Wenn Ansible keinen SSH-Zugriff erhält, wurde die VM möglicherweise noch nicht mit `vagrant up` erstellt. In diesem Fall muss zuerst die VM im Ordner `vagrant/` gestartet werden.
 
 Wenn JupyterLab im Browser nicht erreichbar ist, muss geprüft werden, ob der SSH-Tunnel noch aktiv ist und ob der Dienst auf `127.0.0.1:8888` läuft.
 
-## 10. Fazit
+## 9. Fazit
 
 Das Projekt zeigt eine klassische Ansible-Architektur mit Controller und Managed Host. Die Umgebung ist bewusst schlank gehalten und kann mit Vagrant und Ansible reproduziert werden. JupyterLab und Nginx bleiben lokal gebunden, wodurch der Zugriff kontrolliert über SSH-Tunnel erfolgt.
 
-## 11. Abgrenzung
+## 10. Abgrenzung
 
 Nicht umgesetzt werden Docker, Kubernetes, JupyterHub, öffentlicher Webzugriff, komplexe Benutzerverwaltung oder eine produktive Datenplattform. Der Fokus liegt auf einer verständlichen Ansible-Umsetzung für eine lokale Schulumgebung.
