@@ -222,7 +222,8 @@ Danach wird die VM im bereits geöffneten Ordner `vagrant` in Windows PowerShell
 vagrant halt
 ```
 
-Beim nächsten Start genügt `vagrant up`. Das Playbook muss erneut ausgeführt werden, wenn die VM neu erstellt oder die Ansible-Konfiguration geändert wurde.
+Beim nächsten Start genügt `vagrant up`. 
+Das Playbook muss erneut ausgeführt werden, wenn die VM neu erstellt oder die Ansible-Konfiguration geändert wurde.
 
 ## 7. Funktionsnachweis
 
