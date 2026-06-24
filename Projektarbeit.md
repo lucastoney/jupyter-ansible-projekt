@@ -24,6 +24,10 @@ Der Zugriff auf JupyterLab erfolgt nicht über einen öffentlich freigegebenen P
 
 ## 3. Architektur
 
+![Architektur der JupyterLab-Umgebung](architektur/jupyter_ansible_architektur.png)
+
+*Abbildung 1: Technischer Aufbau mit Laptop, Ansible Controller, privatem Netzwerk und Ubuntu-VM als Managed Host.*
+
 ```text
 Laptop / PC
 Ansible Controller + Browser
@@ -58,6 +62,10 @@ Das Projekt ist in Vagrant und Ansible aufgeteilt:
 Die systemd- und Nginx-Konfigurationen werden über Templates erzeugt.
 
 ## 6. Reproduktion der Umgebung
+
+![Bereitstellungs- und Zugriffsablauf](architektur/jupyter_ansible_ablauf.png)
+
+*Abbildung 2: Ablauf der Erstbereitstellung mit Vagrant und Ansible sowie des späteren Browserzugriffs über den SSH-Tunnel.*
 
 ### 6.1 Voraussetzungen
 
