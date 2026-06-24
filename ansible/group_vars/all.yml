@@ -5,6 +5,9 @@ system_packages:
   - python3-venv
   - nginx
 
+oli_user: oli
+oli_ssh_public_key: "{{ lookup('ansible.builtin.env', 'OLI_SSH_PUBLIC_KEY') }}"
+
 jupyter_user: jupyter
 jupyter_group: jupyter
 jupyter_home: /opt/jupyterlab

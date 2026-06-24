@@ -8,3 +8,48 @@
   ansible.builtin.apt:
     name: "{{ system_packages }}"
     state: present
+
+- name: SSH-Benutzer Oli erstellen
+  ansible.builtin.user:
+    name: "{{ oli_user }}"
+    shell: /bin/bash
+    create_home: true
+    password_lock: true
+    state: present
+  when: oli_ssh_public_key | length > 0
+
+- name: SSH-Verzeichnis fuer Oli erstellen
+  ansible.builtin.file:
+    path: "/home/{{ oli_user }}/.ssh"
+    state: directory
+    owner: "{{ oli_user }}"
+    group: "{{ oli_user }}"
+    mode: "0700"
+  when: oli_ssh_public_key | length > 0
+
+- name: Oeffentlichen SSH-Schluessel von Oli hinterlegen
+  ansible.builtin.copy:
+    dest: "/home/{{ oli_user }}/.ssh/authorized_keys"
+    content: "{{ oli_ssh_public_key }}\n"
+    owner: "{{ oli_user }}"
+    group: "{{ oli_user }}"
+    mode: "0600"
+  when: oli_ssh_public_key | length > 0
+
+- name: Alte SSH-Haertungsdatei entfernen
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config.d/99-key-only.conf
+    state: absent
+  notify: SSH neu laden
+
+- name: SSH auf Schluesselanmeldung beschraenken
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_config.d/00-key-only.conf
+    content: |
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      PermitRootLogin no
+    owner: root
+    group: root
+    mode: "0644"
+  notify: SSH neu laden
